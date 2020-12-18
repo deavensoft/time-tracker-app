@@ -59,7 +59,7 @@
                 :user="selectedUser"
                 @save="saveUser"
                 @cancel="cancelUser"
-                />
+    />
     <b-button v-if="!selectedUser" type="is-primary" @click="create">Create new</b-button>
   </section>
 
@@ -108,7 +108,10 @@ export default {
       this.selectedUser = null;
     },
     create() {
-      this.selectedUser = {};
+      this.selectedUser = {
+        id: null,
+        roles: [],
+      };
     },
   },
   mounted() {

@@ -1,9 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link to="/">Home</router-link>
+      |
+      <router-link to="/about">About</router-link>
+      |
       <router-link to="/users">Users</router-link>
+      |
+      <router-link to="/projects">Projects</router-link>
+
     </div>
     <router-view/>
   </div>
@@ -13,7 +18,7 @@ import Buefy from 'buefy';
 import Vue from 'vue';
 
 Vue.use(Buefy);
-export default { };
+export default {};
 </script>
 <style lang="scss">
 #app {
