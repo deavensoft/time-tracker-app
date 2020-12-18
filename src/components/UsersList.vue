@@ -2,7 +2,6 @@
   <section>
     <b-table :data="users" v-if="!selectedUser">
       <b-table-column
-        @click="openUserDetails(props.row)"
         field="id"
         label="ID"
         sortable
