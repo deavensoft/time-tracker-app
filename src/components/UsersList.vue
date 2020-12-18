@@ -60,6 +60,7 @@
                 @save="saveUser"
                 @cancel="cancelUser"
                 />
+    <b-button v-if="!selectedUser" type="is-primary" @click="create">Create new</b-button>
   </section>
 
 
@@ -86,15 +87,28 @@ export default {
       console.log('User', user);
     },
     saveUser(user) {
-      axios
-        .put(`http://localhost:9090/v1.0/users/${user.id}`, user)
-        .then((response) => {
-          console.log('response', response);
-          this.selectedUser = null;
-        });
+      if (user.id == null) {
+        axios
+          .post('http://localhost:9090/v1.0/users', user)
+          .then((response) => {
+            console.log('response', response);
+            this.selectedUser = null;
+            this.users.push(response.data);
+          });
+      } else {
+        axios
+          .put(`http://localhost:9090/v1.0/users/${user.id}`, user)
+          .then((response) => {
+            console.log('response', response);
+            this.selectedUser = null;
+          });
+      }
     },
     cancelUser() {
       this.selectedUser = null;
+    },
+    create() {
+      this.selectedUser = {};
     },
   },
   mounted() {
