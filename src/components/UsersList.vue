@@ -56,7 +56,10 @@
     </b-table>
 
     <UserDetail v-else
-                :user="selectedUser"></UserDetail>
+                :user="selectedUser"
+                @save="saveUser"
+                @cancel="cancelUser"
+                />
   </section>
 
 
@@ -75,46 +78,23 @@ export default {
     return {
       selectedUser: null,
       users: [],
-      columns: [
-        {
-          field: 'id',
-          label: 'ID',
-          width: '100',
-          numeric: true,
-          searchable: true,
-        },
-        {
-          field: 'firstName',
-          label: 'First Name',
-          searchable: true,
-        },
-        {
-          field: 'lastName',
-          label: 'Last Name',
-          searchable: true,
-        },
-        {
-          field: 'email',
-          label: 'Email',
-          searchable: true,
-        },
-        {
-          field: 'isActive',
-          label: 'Active?',
-          searchable: true,
-        },
-        {
-          field: 'roles',
-          label: 'Role',
-          searchable: true,
-        },
-      ],
     };
   },
   methods: {
     openUserDetails(user) {
       this.selectedUser = user;
       console.log('User', user);
+    },
+    saveUser(user) {
+      axios
+        .put(`http://localhost:9090/v1.0/users/${user.id}`, user)
+        .then((response) => {
+          console.log('response', response);
+          this.selectedUser = null;
+        });
+    },
+    cancelUser() {
+      this.selectedUser = null;
     },
   },
   mounted() {
