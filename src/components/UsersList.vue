@@ -1,6 +1,46 @@
 <template>
   <section>
-    <b-table :data="users" :columns="columns">
+    <b-table :data="users">
+      <b-table-column
+        field="id"
+        label="ID"
+        sortable
+        centered
+        v-slot="props">
+        {{ props.row.id }}
+      </b-table-column>
+      <b-table-column
+        field="firstName"
+        label="First Name"
+        sortable
+        centered
+        v-slot="props">
+        {{ props.row.firstName }}
+      </b-table-column>
+      <b-table-column
+        field="lastName"
+        label="Last Name"
+        sortable
+        centered
+        v-slot="props">
+        {{ props.row.lastName }}
+      </b-table-column>
+      <b-table-column
+        field="email"
+        label="Email"
+        sortable
+        centered
+        v-slot="props">
+        {{ props.row.email }}
+      </b-table-column>
+      <b-table-column
+        field="isActive"
+        label="Active?"
+        sortable
+        centered
+        v-slot="props">
+        {{ props.row.isActive }}
+      </b-table-column>
       <b-table-column field="roles" label="Roles" centered v-slot="props">
         <span v-for="item in props.row.roles" class="tag mr-2" :key="item">
           {{item.role}}
