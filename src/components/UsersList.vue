@@ -1,33 +1,46 @@
 <template>
-  <div>
-    <ul v-for="user in users" :key="user.id">
-      <li> {{user.id}}, {{user.name}} </li>
-    </ul>
-  </div>
+  <section>
+    <b-table :data="users" :columns="columns"></b-table>
+  </section>
 </template>
 
 <script>
 import axios from 'axios';
+import 'buefy/dist/buefy.css';
 
 export default {
-  name: 'UsersList',
   data() {
     return {
       users: null,
+      columns: [
+        {
+          field: 'id',
+          label: 'ID',
+          width: '100',
+          numeric: true,
+          searchable: true,
+        },
+        {
+          field: 'firstName',
+          label: 'First Name',
+          searchable: true,
+        },
+        {
+          field: 'lastName',
+          label: 'Last Name',
+          searchable: true,
+        },
+      ],
     };
   },
   mounted() {
     axios
-      .get('https://jsonplaceholder.typicode.com/users')
+      .get('http://localhost:8080/v1.0/users')
       .then((response) => {
+        console.log(response.data);
         this.users = response.data;
         return null;
       });
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>
