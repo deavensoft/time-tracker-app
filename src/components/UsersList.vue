@@ -56,7 +56,7 @@
     </b-table>
 
     <UserDetail v-else
-                :id="selectedUser.id"></UserDetail>
+                :user="selectedUser"></UserDetail>
   </section>
 
 
