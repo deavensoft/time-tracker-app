@@ -1,7 +1,8 @@
 <template>
   <section>
-    <b-table :data="users">
+    <b-table :data="users" v-if="!selectedUser">
       <b-table-column
+        @click="openUserDetails(props.row)"
         field="id"
         label="ID"
         sortable
@@ -42,21 +43,37 @@
         {{ props.row.isActive }}
       </b-table-column>
       <b-table-column field="roles" label="Roles" centered v-slot="props">
-        <span v-for="item in props.row.roles" class="tag mr-2" :key="item">
-          {{item.role}}
+        <span v-for="item in props.row.roles" class="tag mr-2" :key="item.role">
+          {{ item.role }}
         </span>
       </b-table-column>
+
+      <b-table-column
+        label="Detail"
+        v-slot="props">
+        <button @click="openUserDetails(props.row)">User</button>
+      </b-table-column>
     </b-table>
+
+    <UserDetail v-else
+                :id="selectedUser.id"></UserDetail>
   </section>
+
+
 </template>
 
 <script>
 import axios from 'axios';
 import 'buefy/dist/buefy.css';
+import UserDetail from '@/components/UserDetail.vue';
 
 export default {
+  components: {
+    UserDetail,
+  },
   data() {
     return {
+      selectedUser: null,
       users: [],
       columns: [
         {
@@ -93,6 +110,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    openUserDetails(user) {
+      this.selectedUser = user;
+      console.log('User', user);
+    },
   },
   mounted() {
     axios
